@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>CRS.Simple example - Leaflet</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+
+
+	
+	
+</head>
+<body>
+<div class="textbar">Test Map Clemi	</div>
+
+<div id='map'></div>
+
+<script>
+
+	var map = L.map('map', {
+		crs: L.CRS.Simple,
+		minZoom: -3,
+		maxZoom: 0
+	});
+
+	var yx = L.latLng;
+
+	var xy = function(x, y) {
+		if (L.Util.isArray(x)) {    // When doing xy([x, y]);
+			return yx(x[1], x[0]);
+		}
+		return yx(y, x);  // When doing xy(x, y);
+	};
+
+		var sol = L.marker (
+	{
+		iconUrl: 'img/marker.png',
+		iconSize: [1,1],
+		iconAnchor: [1,2],
+		popupAnchor: [1,2]
+	})
+
+	var bounds = [xy(0, 0), xy(6000, 3000)];
+	var image = L.imageOverlay('img/image.png', bounds).addTo(map);
+
+	var sol      = xy(1000, 2000);
+	var mizar    = xy( 3000, 600);
+	var kruegerZ = xy( 1500,  900);
+	var deneb    = xy(218.7,   200);
+
+	
+
+	L.marker(     sol).addTo(map).bindPopup('Hello <a href="https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png">hello</a>');
+	L.marker(   mizar).addTo(map).bindPopup(    'Text1');
+	L.marker(kruegerZ).addTo(map).bindPopup('Text2');
+	L.marker(   deneb).addTo(map).bindPopup(    'Text3');
+
+
+	// var travel = L.polyline([sol, deneb]).addTo(map);
+
+	map.setView(xy(3000, 1500), -2);
+
+</script>
+
+
+
+</body>
+</html>
