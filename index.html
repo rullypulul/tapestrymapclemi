@@ -19,7 +19,7 @@
 	
 </head>
 <body>
-<div class="textbar">Test Map Clemi	</div>
+<div class="textbar">Tapestry Map</div>
 
 <div id='map'></div>
 
@@ -40,7 +40,7 @@
 		return yx(y, x);  // When doing xy(x, y);
 	};
 
-		var sol = L.marker (
+		L.marker (
 	{
 		iconUrl: 'img/marker.png',
 		iconSize: [1,1],
@@ -51,17 +51,25 @@
 	var bounds = [xy(0, 0), xy(6000, 3000)];
 	var image = L.imageOverlay('img/image.png', bounds).addTo(map);
 
-	var sol      = xy(1000, 2000);
-	var mizar    = xy( 3000, 600);
+	var sol      = xy(1000, 2500);
+	var mizar    = xy( 5000, 900);
 	var kruegerZ = xy( 1500,  900);
 	var deneb    = xy(218.7,   200);
+	var yanto    = xy(2500,   200);
+	var herman    = xy(3600,   300);
+	var bambang    = xy(2800,   1000);
+	var susi    = xy(2900,   2000);
 
 	
 
-	L.marker(     sol).addTo(map).bindPopup('Hello <a href="https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png">hello</a>');
-	L.marker(   mizar).addTo(map).bindPopup(    'Text1');
-	L.marker(kruegerZ).addTo(map).bindPopup('Text2');
-	L.marker(   deneb).addTo(map).bindPopup(    'Text3');
+	L.marker(     sol).addTo(map).bindPopup('Stability lies in movement.');
+	L.marker(   mizar).addTo(map).bindPopup(    'The end result does not exist.');
+	L.marker(kruegerZ).addTo(map).bindPopup('Dialogue is a truly underestimated creative power. ');
+	L.marker(   deneb).addTo(map).bindPopup(    'Everything is allowed');
+	L.marker(   yanto).addTo(map).bindPopup(    'The journey is very, very subjective. So is luggage. ');
+	L.marker(   herman).addTo(map).bindPopup(    'Nothing was ever certain, but not being able to avoid uncertainty for real is another deal.');
+	L.marker(   bambang).addTo(map).bindPopup(    'Beauty will save the world.');
+	L.marker(   susi).addTo(map).bindPopup(    'I want more poetry.');
 
 
 	// var travel = L.polyline([sol, deneb]).addTo(map);
