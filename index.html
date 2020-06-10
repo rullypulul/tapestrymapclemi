@@ -1,84 +1,231 @@
-
 <!DOCTYPE html>
-<html>
+<html style="height: 100%; margin: 0;">
 <head>
 	
-	<title>CRS.Simple example - Leaflet</title>
-
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
-	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
-
-
-	
-	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Tapestr Map</title>
+	<link rel="stylesheet" type="text/css" href="scripts/leaflet/leaflet.css">
+	<script type="text/javascript" src="scripts/leaflet/leaflet.js"></script>
 </head>
-<body>
-<div class="textbar">Tapestry Map</div>
 
-<div id='map'></div>
+<body style="height: 100%; margin: 0;">
 
-<script>
+<div style="font-family: arial, sans-serif; color: blue; font-size: 40px; padding-left: 8px; padding-top: 4px;">TAPESTRY MAP</div>
 
-	var map = L.map('map', {
-		crs: L.CRS.Simple,
-		minZoom: -3,
-		maxZoom: 0
-	});
+<div id="map" style="width:100%; height:100%; margin: 0; background: white;"></div>
 
-	var yx = L.latLng;
+<script type="text/javascript">
 
-	var xy = function(x, y) {
-		if (L.Util.isArray(x)) {    // When doing xy([x, y]);
-			return yx(x[1], x[0]);
-		}
-		return yx(y, x);  // When doing xy(x, y);
-	};
+// Variables
 
-		L.marker (
-	{
-		iconUrl: 'img/marker.png',
-		iconSize: [1,1],
-		iconAnchor: [1,2],
-		popupAnchor: [1,2]
-	})
-
-	var bounds = [xy(0, 0), xy(6000, 3000)];
-	var image = L.imageOverlay('img/image.png', bounds).addTo(map);
-
-	var sol      = xy(1000, 2500);
-	var mizar    = xy( 5000, 900);
-	var kruegerZ = xy( 1500,  900);
-	var deneb    = xy(218.7,   200);
-	var yanto    = xy(2500,   200);
-	var herman    = xy(3600,   300);
-	var bambang    = xy(2800,   1000);
-	var susi    = xy(2900,   2000);
-
+var mapSW = [0, 4096],
+	mapNE = [4096, 0];	
 	
+// declare map objects
+var map = L.map('map').setView([0, 0], 3);
 
-	L.marker(     sol).addTo(map).bindPopup('Stability lies in movement.');
-	L.marker(   mizar).addTo(map).bindPopup(    'The end result does not exist.');
-	L.marker(kruegerZ).addTo(map).bindPopup('Dialogue is a truly underestimated creative power. ');
-	L.marker(   deneb).addTo(map).bindPopup(    'Everything is allowed');
-	L.marker(   yanto).addTo(map).bindPopup(    'The journey is very, very subjective. So is luggage. ');
-	L.marker(   herman).addTo(map).bindPopup(    'Nothing was ever certain, but not being able to avoid uncertainty for real is another deal.');
-	L.marker(   bambang).addTo(map).bindPopup(    'Beauty will save the world.');
-	L.marker(   susi).addTo(map).bindPopup(    'I want more poetry.');
+// reference the tiles
+L.tileLayer('maps/{z}/{x}/{y}.png', {
+	minZoom: 0,
+	maxZoom: 4,
+	continuousWorld: false,
+	noWrap: true,
+	crs: L.CRS.Simple,
+
+}).addTo(map);
+
+// set maxbound
+map.setMaxBounds(new L.LatLngBounds(
+
+	map.unproject(mapSW, map.getMaxZoom()),
+	map.unproject(mapNE, map.getMaxZoom()),
+
+))
+
+// Icons
+
+var purple = L.icon({
+    iconUrl: 'images/map-png_06.png',
+    iconSize: [86, 86],
+    iconAnchor: [22, 94],
+    popupAnchor: [-3, -76],
+    shadowUrl: 'images/shadow01.png',
+    shadowSize: [86, 86],
+    shadowAnchor: [22, 94]
+});
 
 
-	// var travel = L.polyline([sol, deneb]).addTo(map);
+// first marker
+var marker = L.marker([20, 0],{
+	draggable: true,
+	riseOnHover: true,
+	opacity: 0.8,
+	icon: purple,
 
-	map.setView(xy(3000, 1500), -2);
+}).addTo(map);marker.bindPopup('');
+
+marker.on('dragend', function(e) {
+	// alert(marker.getLatLng().toString());
+	marker.getPopup().setContent(('Yoloo!').toString()).openOn(map);
+
+});
+
+marker.on('click', function(e) {
+	// alert(marker.getLatLng().toString());
+	marker.getPopup().setContent(('Hello! What is uuup!').toString()).openOn(map);
+	
+});
+
+
+// second marker
+
+var markertwo = L.marker([20, 30],{
+	draggable: true,
+	riseOnHover: true,
+	opacity: 0.8,
+	icon: purple,
+
+}).addTo(map);markertwo.bindPopup('');
+
+markertwo.on('dragend', function(e) {
+	// alert(marker.getLatLng().toString());
+	markertwo.getPopup().setContent(('Yippiee!').toString()).openOn(map);
+
+});
+
+markertwo.on('click', function(e) {
+	// alert(marker.getLatLng().toString());
+	markertwo.getPopup().setContent(('Hello! What is good!').toString()).openOn(map);
+	
+});
+
+
+
+// third marker
+
+var markerthree = L.marker([30, 30],{
+	draggable: true,
+	riseOnHover: true,
+	opacity: 0.8,
+	icon: purple,
+
+}).addTo(map);markerthree.bindPopup('');
+
+markerthree.on('dragend', function(e) {
+	// alert(marker.getLatLng().toString());
+	markerthree.getPopup().setContent(('Yippiee!').toString()).openOn(map);
+
+});
+
+markerthree.on('click', function(e) {
+	// alert(marker.getLatLng().toString());
+	markerthree.getPopup().setContent(('Hello! What is good!').toString()).openOn(map);
+	
+});
+
+// 4th marker
+
+var markerfour = L.marker([50, 50],{
+	draggable: true,
+	riseOnHover: true,
+	opacity: 0.8,
+	icon: purple,
+
+}).addTo(map);markerfour.bindPopup('');
+
+markerfour.on('dragend', function(e) {
+	// alert(marker.getLatLng().toString());
+	markerfour.getPopup().setContent(('Yippiee!').toString()).openOn(map);
+
+});
+
+markerfour.on('click', function(e) {
+	// alert(marker.getLatLng().toString());
+	markerfour.getPopup().setContent(('Hello! What is good!').toString()).openOn(map);
+	
+});
+
+
+// 5th marker
+
+var markerfive = L.marker([-10, 60],{
+	draggable: true,
+	riseOnHover: true,
+	opacity: 0.8,
+	icon: purple,
+
+}).addTo(map);markerfive.bindPopup('');
+
+markerfive.on('dragend', function(e) {
+	// alert(marker.getLatLng().toString());
+	markerfive.getPopup().setContent(('Yippiee!').toString()).openOn(map);
+
+});
+
+markerfive.on('click', function(e) {
+	// alert(marker.getLatLng().toString());
+	markerfive.getPopup().setContent(('Hello! What is good!').toString()).openOn(map);
+	
+});
+
+
+// 6th marker
+
+var markersixth = L.marker([-40, 10],{
+	draggable: true,
+	riseOnHover: true,
+	opacity: 0.8,
+	icon: purple,
+
+}).addTo(map);markersixth.bindPopup('');
+
+markersixth.on('dragend', function(e) {
+	// alert(marker.getLatLng().toString());
+	markersixth.getPopup().setContent(('Yippiee!').toString()).openOn(map);
+
+});
+
+markersixth.on('click', function(e) {
+	// alert(marker.getLatLng().toString());
+	markersixth.getPopup().setContent(('Hello! What is good!').toString()).openOn(map);
+	
+});
+
+
+// 7th marker
+
+var markerseventh = L.marker([-20, -40],{
+	draggable: true,
+	riseOnHover: true,
+	opacity: 0.8,
+	icon: purple,
+
+}).addTo(map);markerseventh.bindPopup('');
+
+markerseventh.on('dragend', function(e) {
+	// alert(marker.getLatLng().toString());
+	markerseventh.getPopup().setContent(('Yippiee!').toString()).openOn(map);
+
+});
+
+markerseventh.on('click', function(e) {
+	// alert(marker.getLatLng().toString());
+	markerseventh.getPopup().setContent(('Hello! What is good!').toString()).openOn(map);
+	
+});
+
+
+// Change the position of the Zoom Control to a newly created placeholder.
+map.zoomControl.setPosition('');
+
+// You can also put other controls in the same placeholder.
+ L.control.scale({
+ position: ''
+ }).addTo(map);
+
+var latlng = L.latLng(50.5, 30.5);
 
 </script>
-
-
 
 </body>
 </html>
