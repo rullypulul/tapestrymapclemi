@@ -6,6 +6,7 @@
 	<title>Tapestr Map</title>
 	<link rel="stylesheet" type="text/css" href="scripts/leaflet/leaflet.css">
 	<script type="text/javascript" src="scripts/leaflet/leaflet.js"></script>
+	<script type="text/javascript" src="scripts/bouncemarker/bouncemarker.js"></script>
 </head>
 
 <body style="height: 100%; margin: 0;">
@@ -23,6 +24,7 @@ var mapSW = [0, 4096],
 	
 // declare map objects
 var map = L.map('map').setView([0, 0], 3);
+
 
 // reference the tiles
 L.tileLayer('maps/{z}/{x}/{y}.png', {
@@ -61,6 +63,8 @@ var marker = L.marker([20, 0],{
 	riseOnHover: true,
 	opacity: 0.8,
 	icon: purple,
+	bounceOnAdd: true,
+	bounceOnAddOptions: {duration: 1000, height: 30, loop: 1},
 
 }).addTo(map);marker.bindPopup('');
 
@@ -84,6 +88,8 @@ var markertwo = L.marker([20, 30],{
 	riseOnHover: true,
 	opacity: 0.8,
 	icon: purple,
+	bounceOnAdd: true,
+	bounceOnAddOptions: {duration: 1000, height: 30, loop: 1},
 
 }).addTo(map);markertwo.bindPopup('');
 
@@ -108,6 +114,8 @@ var markerthree = L.marker([30, 30],{
 	riseOnHover: true,
 	opacity: 0.8,
 	icon: purple,
+	bounceOnAdd: true,
+	bounceOnAddOptions: {duration: 1000, height: 30, loop: 1},
 
 }).addTo(map);markerthree.bindPopup('');
 
@@ -130,6 +138,8 @@ var markerfour = L.marker([50, 50],{
 	riseOnHover: true,
 	opacity: 0.8,
 	icon: purple,
+	bounceOnAdd: true,
+	bounceOnAddOptions: {duration: 1000, height: 30, loop: 1},
 
 }).addTo(map);markerfour.bindPopup('');
 
@@ -153,6 +163,8 @@ var markerfive = L.marker([-10, 60],{
 	riseOnHover: true,
 	opacity: 0.8,
 	icon: purple,
+	bounceOnAdd: true,
+	bounceOnAddOptions: {duration: 1000, height: 30, loop: 1},
 
 }).addTo(map);markerfive.bindPopup('');
 
@@ -176,6 +188,8 @@ var markersixth = L.marker([-40, 10],{
 	riseOnHover: true,
 	opacity: 0.8,
 	icon: purple,
+	bounceOnAdd: true,
+	bounceOnAddOptions: {duration: 1000, height: 30, loop: 1},
 
 }).addTo(map);markersixth.bindPopup('');
 
@@ -199,6 +213,8 @@ var markerseventh = L.marker([-20, -40],{
 	riseOnHover: true,
 	opacity: 0.8,
 	icon: purple,
+	bounceOnAdd: true,
+	bounceOnAddOptions: {duration: 1000, height: 30, loop: 1},
 
 }).addTo(map);markerseventh.bindPopup('');
 
